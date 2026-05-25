@@ -297,6 +297,17 @@
   .exp-tags { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1.75rem; }
   .exp-tag { font-family:'DM Mono',monospace; font-size:12px; padding:.35rem .85rem; border:1px solid var(--border); color:var(--muted); border-radius:2px; }
 
+  /* Store links */
+  .store-links { display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1.5rem; }
+  .store-link {
+    font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.08em;
+    padding:.4rem 1rem; border-radius:2px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:.4rem; transition:all .2s ease;
+    border:1px solid var(--border2); color:var(--accent); background:var(--accent-dim);
+  }
+  .store-link:hover { background:rgba(0,255,135,0.18); border-color:var(--accent); transform:translateY(-1px); box-shadow:0 0 12px rgba(0,255,135,0.15); }
+  .store-link svg { width:13px; height:13px; fill:currentColor; flex-shrink:0; }
+
   .projects-grid {
     display:grid; grid-template-columns:repeat(2,1fr);
     gap:1px; background:var(--border); border:1px solid var(--border);
@@ -320,7 +331,7 @@
   .project-desc { font-size:1rem; color:rgba(239,245,240,0.62); line-height:1.75; flex:1; margin-bottom:2.25rem; }
   .project-stack { display:flex; gap:.45rem; flex-wrap:wrap; margin-bottom:2.25rem; }
   .stack-tag { font-family:'DM Mono',monospace; font-size:11px; padding:.28rem .65rem; background:rgba(0,255,135,0.05); color:var(--muted); border-radius:2px; border:1px solid var(--border); }
-  .project-links { display:flex; gap:1.25rem; margin-top:auto; }
+  .project-links { display:flex; gap:1.25rem; margin-top:auto; flex-wrap:wrap; align-items:center; }
   .project-link {
     font-family:'DM Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
     color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:.45rem;
@@ -387,6 +398,99 @@
   .reveal-delay-2 { transition-delay:.24s; }
   .reveal-delay-3 { transition-delay:.36s; }
 
+  /* ── Contact Modal ── */
+  .modal-overlay {
+    position:fixed; inset:0; z-index:10000;
+    background:rgba(5,12,9,0.85); backdrop-filter:blur(18px);
+    display:flex; align-items:center; justify-content:center;
+    padding:1.5rem;
+    opacity:0; pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+
+  .modal {
+    background:var(--bg2); border:1px solid var(--border2);
+    border-radius:4px; width:100%; max-width:560px;
+    padding:3rem; position:relative;
+    transform:translateY(24px) scale(0.98);
+    transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow:0 0 60px rgba(0,255,135,0.06), 0 32px 80px rgba(0,0,0,0.6);
+  }
+  .modal-overlay.open .modal { transform:translateY(0) scale(1); }
+
+  .modal-close {
+    position:absolute; top:1.25rem; right:1.25rem;
+    background:none; border:none; cursor:none;
+    color:var(--muted); font-size:1.4rem; line-height:1;
+    transition:color .2s; padding:.25rem .5rem; border-radius:2px;
+  }
+  .modal-close:hover { color:var(--accent); }
+
+  .modal-tag {
+    font-family:'DM Mono',monospace; font-size:11px; color:var(--accent);
+    letter-spacing:.2em; text-transform:uppercase; margin-bottom:1.25rem;
+    display:flex; align-items:center; gap:.6rem;
+  }
+  .modal-tag::before { content:''; width:20px; height:1px; background:var(--accent); }
+
+  .modal-title {
+    font-family:'Syne',sans-serif; font-size:2rem; font-weight:700;
+    line-height:1.1; margin-bottom:2.25rem;
+  }
+
+  .form-group { margin-bottom:1.5rem; }
+  .form-label {
+    display:block; font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--muted); letter-spacing:.15em; text-transform:uppercase;
+    margin-bottom:.6rem;
+  }
+  .form-input, .form-textarea {
+    width:100%; background:var(--bg); border:1px solid var(--border);
+    border-radius:2px; padding:.9rem 1.1rem;
+    font-family:'Bricolage Grotesque',sans-serif; font-size:1rem;
+    color:var(--text); outline:none; transition:border-color .2s, box-shadow .2s;
+    resize:none;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color:var(--muted); opacity:.6; }
+  .form-input:focus, .form-textarea:focus {
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(0,255,135,0.08);
+  }
+  .form-textarea { min-height:130px; }
+
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+  .form-submit {
+    width:100%; padding:1rem; margin-top:.5rem;
+    background:var(--accent); color:#050C09;
+    font-family:'DM Mono',monospace; font-size:13px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase;
+    border:none; border-radius:2px; cursor:none;
+    transition:all .25s ease;
+    box-shadow:0 0 20px rgba(0,255,135,0.2);
+    display:flex; align-items:center; justify-content:center; gap:.6rem;
+  }
+  .form-submit:hover {
+    background:var(--accent2); transform:translateY(-2px);
+    box-shadow:0 0 32px rgba(0,255,135,0.35);
+  }
+  .form-submit:disabled { opacity:.5; transform:none; cursor:not-allowed; }
+
+  .modal-success {
+    display:none; text-align:center; padding:2rem 0;
+  }
+  .modal-success.show { display:block; }
+  .success-icon { font-size:3rem; margin-bottom:1rem; display:block; }
+  .success-title {
+    font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:700;
+    margin-bottom:.6rem; color:var(--accent);
+  }
+  .success-sub { font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); line-height:1.8; }
+
+  .modal-form-wrap { transition:opacity .2s; }
+  .modal-form-wrap.hidden { opacity:0; pointer-events:none; }
+
   @media (max-width:768px) {
     nav { padding:1.25rem 1.75rem; }
     .nav-links { display:none; }
@@ -404,6 +508,8 @@
     .scroll-indicator { display:none; }
     html { cursor:auto; }
     .cursor,.cursor-ring { display:none; }
+    .form-row { grid-template-columns:1fr; }
+    .modal { padding:2rem 1.5rem; }
   }
 </style>
 </head>
@@ -411,6 +517,50 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Contact Modal -->
+<div class="modal-overlay" id="contactModal" role="dialog" aria-modal="true" aria-label="Contact form">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">&#x2715;</button>
+
+    <div class="modal-form-wrap" id="modalFormWrap">
+      <div class="modal-tag">Say hello</div>
+      <h2 class="modal-title">Let's work<br>together.</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="contact-name">Name</label>
+          <input class="form-input" id="contact-name" type="text" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contact-email">Email</label>
+          <input class="form-input" id="contact-email" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="contact-subject">Subject</label>
+        <input class="form-input" id="contact-subject" type="text" placeholder="Frontend role / Freelance project / Just saying hi">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" placeholder="Tell me about the project, role, or idea..."></textarea>
+      </div>
+
+      <button class="form-submit" id="formSubmit">
+        <span>Send Message</span>
+        <span>&#x2192;</span>
+      </button>
+    </div>
+
+    <div class="modal-success" id="modalSuccess">
+      <span class="success-icon">&#x2736;</span>
+      <div class="success-title">Opening your email...</div>
+      <p class="success-sub">Your email client will open with the message pre-filled.<br>Talk soon.</p>
+    </div>
+  </div>
+</div>
 
 <nav id="nav">
   <a href="#" class="nav-logo">ps.dev</a>
@@ -429,11 +579,11 @@
   <p class="hero-role"><span class="typing" id="typing"></span><span class="cursor-blink"></span></p>
   <div class="hero-cta">
     <a href="#projects" class="btn btn-primary">View Work ↓</a>
-    <a href="mailto:parth.sharma.rn@gmail.com" class="btn btn-secondary">Get in Touch →</a>
+    <a href="#" class="btn btn-secondary" id="openModalHero">Get in Touch &#x2192;</a>
   </div>
   <div class="hero-stats">
     <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Active Users</div></div>
-    <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">Apps Shipped</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Apps Shipped</div></div>
     <div class="stat-item"><div class="stat-num">1000+</div><div class="stat-label">Teams Beaten</div></div>
   </div>
   <div class="scroll-indicator"><div class="scroll-line"></div><span class="scroll-text">scroll</span></div>
@@ -520,11 +670,21 @@
         <div class="exp-role">Frontend Developer<br>React Native / React.js</div>
         <ul class="exp-bullets">
           <li>Engineered 65+ reusable UI components for AIRE CRM — cut UI lag by 20% and API overhead by 35% via memoization and call batching.</li>
-          <li>Released 5+ apps on Play Store & App Store; integrated Sentry reducing unresolved errors by 40%.</li>
+          <li>Released 5+ apps on Play Store &amp; App Store; integrated Sentry reducing unresolved errors by 40%.</li>
           <li>Integrated 90+ REST endpoints with real-time sync across 5+ modules; drove 10+ agile sprints end-to-end.</li>
         </ul>
         <div class="exp-tags">
           <span class="exp-tag">React Native</span><span class="exp-tag">React.js</span><span class="exp-tag">Sentry</span><span class="exp-tag">Firebase</span><span class="exp-tag">REST APIs</span>
+        </div>
+        <div class="store-links">
+          <a href="https://apps.apple.com/us/app/aire/id6757741025" target="_blank" class="store-link">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            AIRE · App Store
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.aire.mobileapp" target="_blank" class="store-link">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.18 23.76c.3.17.64.22.99.14l13.2-7.62-2.88-2.88-11.31 10.36zm-1.5-20.7A1.78 1.78 0 0 0 1.5 4v16c0 .5.2.94.18 1.24L14 12 1.68 2.76zM20.44 10.3l-2.96-1.7-3.26 3.26 3.26 3.26 2.97-1.71c.85-.49.85-1.62-.01-2.11zM4.17.1C3.82.02 3.48.07 3.18.24L14.5 12 3.18 23.76c.3.17.64.22.99.14l.01-.01 13.2-7.62-13.21-16.17z"/></svg>
+            AIRE · Play Store
+          </a>
         </div>
       </div>
     </div>
@@ -583,11 +743,19 @@
 
     <div class="project-card reveal reveal-delay-1">
       <div class="project-num">03 — React Native / WebRTC</div>
-      <div class="project-name">Video Chat</div>
+      <div class="project-name">FaceChat</div>
       <div class="project-type">Real-Time P2P Video</div>
-      <div class="project-desc">Peer-to-peer video system under 300ms latency. Full ICE/STUN/TURN negotiation and signaling — handling 50+ concurrent connections. No third-party video SDK.</div>
+      <div class="project-desc">Peer-to-peer video calling with under 300ms latency. Full ICE/STUN/TURN negotiation and custom signaling — handling 50+ concurrent connections. In-call chat, PiP, mic/camera controls. No third-party video SDK.</div>
       <div class="project-stack"><span class="stack-tag">React Native</span><span class="stack-tag">WebRTC</span><span class="stack-tag">Socket.IO</span><span class="stack-tag">ICE/STUN/TURN</span></div>
-      <div class="project-links"><a href="https://github.com/Parastud/Video-Chatting" target="_blank" class="project-link">GitHub →</a></div>
+      <div class="project-links">
+        <a href="https://github.com/Parastud/Video-Chatting" target="_blank" class="project-link">GitHub →</a>
+      </div>
+      <div class="store-links">
+        <a href="https://play.google.com/store/apps/details?id=com.parastud.facechat" target="_blank" class="store-link">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.18 23.76c.3.17.64.22.99.14l13.2-7.62-2.88-2.88-11.31 10.36zm-1.5-20.7A1.78 1.78 0 0 0 1.5 4v16c0 .5.2.94.18 1.24L14 12 1.68 2.76zM20.44 10.3l-2.96-1.7-3.26 3.26 3.26 3.26 2.97-1.71c.85-.49.85-1.62-.01-2.11zM4.17.1C3.82.02 3.48.07 3.18.24L14.5 12 3.18 23.76c.3.17.64.22.99.14l.01-.01 13.2-7.62-13.21-16.17z"/></svg>
+          Play Store
+        </a>
+      </div>
     </div>
 
     <div class="project-card reveal reveal-delay-2">
@@ -598,6 +766,24 @@
       <div class="project-stack"><span class="stack-tag">Expo</span><span class="stack-tag">Google Maps API</span><span class="stack-tag">Node.js</span><span class="stack-tag">MongoDB</span><span class="stack-tag">Firebase</span></div>
       <div class="project-links"><a href="https://github.com/Parastud/ParkEase" target="_blank" class="project-link">GitHub →</a></div>
     </div>
+
+    <div class="project-card reveal reveal-delay-3">
+      <div class="project-num">05 — React Native</div>
+      <div class="project-name">Gigly</div>
+      <div class="project-type">Micro-Job Marketplace</div>
+      <div class="project-desc">AI-powered gig marketplace connecting local service providers with customers. Features real-time bidding, trust score system, smart location-based job matching, and secure payments — built end-to-end and live on the Play Store.</div>
+      <div class="project-stack"><span class="stack-tag">React Native</span><span class="stack-tag">Node.js</span><span class="stack-tag">Firebase</span><span class="stack-tag">AI Matching</span><span class="stack-tag">Maps API</span></div>
+      <div class="project-links">
+        <a href="https://ogs.codes" target="_blank" class="project-link">Website →</a>
+      </div>
+      <div class="store-links">
+        <a href="https://play.google.com/store/apps/details?id=com.the_ogs.app" target="_blank" class="store-link">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.18 23.76c.3.17.64.22.99.14l13.2-7.62-2.88-2.88-11.31 10.36zm-1.5-20.7A1.78 1.78 0 0 0 1.5 4v16c0 .5.2.94.18 1.24L14 12 1.68 2.76zM20.44 10.3l-2.96-1.7-3.26 3.26 3.26 3.26 2.97-1.71c.85-.49.85-1.62-.01-2.11zM4.17.1C3.82.02 3.48.07 3.18.24L14.5 12 3.18 23.76c.3.17.64.22.99.14l.01-.01 13.2-7.62-13.21-16.17z"/></svg>
+          Play Store
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -608,7 +794,7 @@
     <div class="ach-item reveal"><span class="ach-icon">🏆</span><div class="ach-title">SIH 2024 Finalist</div><div class="ach-sub">Smart India Hackathon — ranked among top teams nationally out of 1000+ participants</div></div>
     <div class="ach-item reveal reveal-delay-1"><span class="ach-icon">🥈</span><div class="ach-title">HackSpace Runner-Up</div><div class="ach-sub">HackSpace Hackathon 2024 — second place in competitive national hackathon</div></div>
     <div class="ach-item reveal reveal-delay-2"><span class="ach-icon">🍃</span><div class="ach-title">MongoDB Certified</div><div class="ach-sub">Official MongoDB Certified Developer — verified proficiency in data modelling and queries</div></div>
-    <div class="ach-item reveal reveal-delay-3"><span class="ach-icon">📦</span><div class="ach-title">8+ Apps Shipped</div><div class="ach-sub">Live on Play Store and App Store — real products with real users, not demo projects</div></div>
+    <div class="ach-item reveal reveal-delay-3"><span class="ach-icon">📦</span><div class="ach-title">10+ Apps Shipped</div><div class="ach-sub">Live on Play Store and App Store — real products with real users, not demo projects</div></div>
   </div>
 </section>
 
@@ -617,9 +803,9 @@
   <h2 class="section-title reveal">Let's build<br>something.</h2>
   <p class="contact-sub reveal">Open to frontend roles, contract work, and interesting problems. Based in India, open to remote.</p>
   <div class="contact-links reveal">
-    <a href="mailto:parth.sharma.rn@gmail.com" class="contact-link">✉ Email</a>
+    <a href="#" class="contact-link" id="openModalContact">&#x2709; Send a Message</a>
     <a href="https://linkedin.com/in/parastud" target="_blank" class="contact-link">in LinkedIn</a>
-    <a href="https://github.com/parastud" target="_blank" class="contact-link">⌥ GitHub</a>
+    <a href="https://github.com/parastud" target="_blank" class="contact-link">&#x2325; GitHub</a>
   </div>
 </section>
 
@@ -667,6 +853,75 @@
     setTimeout(type,deleting?40:80);
   }
   setTimeout(type,1500);
+
+  // ── Contact Modal ──
+  const modal       = document.getElementById('contactModal');
+  const modalClose  = document.getElementById('modalClose');
+  const formWrap    = document.getElementById('modalFormWrap');
+  const modalSuccess= document.getElementById('modalSuccess');
+  const formSubmit  = document.getElementById('formSubmit');
+
+  function openModal() {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('contact-name').focus(), 350);
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    // reset after animation
+    setTimeout(() => {
+      formWrap.classList.remove('hidden');
+      modalSuccess.classList.remove('show');
+      ['contact-name','contact-email','contact-subject','contact-message'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+    }, 300);
+  }
+
+  document.getElementById('openModalHero').addEventListener('click', e => { e.preventDefault(); openModal(); });
+  document.getElementById('openModalContact').addEventListener('click', e => { e.preventDefault(); openModal(); });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  formSubmit.addEventListener('click', () => {
+    const name    = document.getElementById('contact-name').value.trim();
+    const email   = document.getElementById('contact-email').value.trim();
+    const subject = document.getElementById('contact-subject').value.trim();
+    const message = document.getElementById('contact-message').value.trim();
+
+    // Basic validation
+    if (!name || !email || !message) {
+      const missing = [];
+      if (!name) missing.push('name');
+      if (!email) missing.push('email');
+      if (!message) missing.push('message');
+      // Highlight missing fields
+      ['contact-name','contact-email','contact-message'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) {
+          el.style.borderColor = 'rgba(255,80,80,0.6)';
+          el.style.boxShadow = '0 0 0 3px rgba(255,80,80,0.08)';
+          el.addEventListener('input', function fix() {
+            el.style.borderColor = '';
+            el.style.boxShadow = '';
+            el.removeEventListener('input', fix);
+          });
+        }
+      });
+      return;
+    }
+
+    const body = `Hi Parth,\n\n${message}\n\n---\nFrom: ${name}\nReply to: ${email}`;
+    const mailtoLink = `mailto:parth.sharma.rn@gmail.com?subject=${encodeURIComponent(subject || 'Message from ' + name)}&body=${encodeURIComponent(body)}`;
+
+    formWrap.classList.add('hidden');
+    modalSuccess.classList.add('show');
+
+    setTimeout(() => { window.location.href = mailtoLink; }, 600);
+    setTimeout(closeModal, 4000);
+  });
 
   const reveals=document.querySelectorAll('.reveal');
   const obs=new IntersectionObserver(entries=>{
